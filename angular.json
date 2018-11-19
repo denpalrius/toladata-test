@@ -137,5 +137,8 @@
       }
     }
   },
-  "defaultProject": "toladata"
+  "defaultProject": "toladata",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

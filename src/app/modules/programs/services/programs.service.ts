@@ -2,14 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of, throwError } from 'rxjs';
-import { Program } from '../models/program';
 import { catchError, map } from 'rxjs/operators';
+import { Program } from '../models/program';
 import { Activity } from '../models/activity';
+import * as fromProgramList from '../../../store';
 
 @Injectable()
 export class ProgramsService {
   constructor(
-    // private readonly store: Store<fromProgramsState.State>,
+    private readonly store: Store<fromProgramList.State>,
     private readonly http: HttpClient,
   ) {}
 

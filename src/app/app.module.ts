@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NewActivityComponent } from './components/new-activity/new-activity.component';
 import {
   MatInputModule,
   MatButtonModule,
@@ -21,29 +20,28 @@ import {
   MatSidenavModule,
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ProgramsListComponent } from './components/programs-list/programs-list.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { EffectsModule } from '@ngrx/effects';
-import { ProgramsEffects } from './effects/programs.effects';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { HttpClientModule } from '@angular/common/http';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MainLayoutComponent,
-    NewActivityComponent,
-    ProgramsListComponent,
-  ],
+  declarations: [AppComponent, MainLayoutComponent],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    LayoutModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
     MatCardModule,
-    ReactiveFormsModule,
-    LayoutModule,
     MatToolbarModule,
     MatIconModule,
     MatListModule,
@@ -53,9 +51,9 @@ import { ProgramsEffects } from './effects/programs.effects';
     MatRadioModule,
     MatSnackBarModule,
     MatSidenavModule,
-    EffectsModule.forRoot([ProgramsEffects]),
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

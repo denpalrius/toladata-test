@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NewActivityComponent } from './components/new-activity/new-activity.component';
-import { ProgramsListComponent } from './components/programs-list/programs-list.component';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
 
 const routes: Routes = [
-  { path: '', component: ProgramsListComponent },
-  { path: 'new-activity', component: NewActivityComponent },
+  { path: '', component: MainLayoutComponent },
+
+  {
+    path: 'programs',
+    loadChildren: './modules/programs/programs.module#ProgramsModule',
+  },
+
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
