@@ -23,7 +23,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProgramsListComponent } from './components/programs-list/programs-list.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
-import { TestComponent } from './components/test/test.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +30,6 @@ import { TestComponent } from './components/test/test.component';
     MainLayoutComponent,
     NewActivityComponent,
     ProgramsListComponent,
-    TestComponent,
   ],
   imports: [
     BrowserModule,
