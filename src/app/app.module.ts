@@ -17,12 +17,15 @@ import {
   MatMenuModule,
   MatDatepickerModule,
   MatRadioModule,
-  MatSnackBarModule, MatSidenavModule,
+  MatSnackBarModule,
+  MatSidenavModule,
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProgramsListComponent } from './components/programs-list/programs-list.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
+import { EffectsModule } from '@ngrx/effects';
+import { ProgramsEffects } from './effects/programs.effects';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,7 @@ import { MainLayoutComponent } from './components/main-layout/main-layout.compon
     MatRadioModule,
     MatSnackBarModule,
     MatSidenavModule,
+    EffectsModule.forRoot([ProgramsEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],
