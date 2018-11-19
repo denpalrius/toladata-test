@@ -17,17 +17,21 @@ import {
   MatMenuModule,
   MatDatepickerModule,
   MatRadioModule,
-  MatSnackBarModule,
+  MatSnackBarModule, MatSidenavModule,
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProgramsListComponent } from './components/programs-list/programs-list.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MainLayoutComponent } from './components/main-layout/main-layout.component';
+import { TestComponent } from './components/test/test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    MainLayoutComponent,
     NewActivityComponent,
     ProgramsListComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatDatepickerModule,
     MatRadioModule,
     MatSnackBarModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
