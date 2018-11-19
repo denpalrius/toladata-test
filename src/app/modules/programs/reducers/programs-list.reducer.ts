@@ -1,9 +1,9 @@
 import { Action, createSelector } from '@ngrx/store';
 import { Program } from '../models/program';
 import {
-  ProgramsActions,
+  programsActions,
   ProgramsListActionTypes,
-} from '../actions/programs-list.actions';
+} from '../actions/programs.actions';
 
 export interface State {
   programsList: Array<Program>;
@@ -15,17 +15,17 @@ export const initialState: State = {
 
 export function reducer(
   state = initialState,
-  action: ProgramsActions,
+  action: programsActions,
 ): State {
   switch (action.type) {
-    case ProgramsListActionTypes.LoadProgramsList: {
+    case ProgramsListActionTypes.LOAD_PROGRAMS: {
       console.log('ProgramsListActionTypes: ', { ...state });
 
       return { ...state };
     }
 
-    case ProgramsListActionTypes.LoadProgramsListSuccess:
-    case ProgramsListActionTypes.LoadProgramsListFail: {
+    case ProgramsListActionTypes.LOAD_PROGRAMS_SUCCESS:
+    case ProgramsListActionTypes.LOAD_PROGRAMS_FAIL: {
       console.log('ProgramsListActionTypes: ', action.payload);
       return {
         ...state,

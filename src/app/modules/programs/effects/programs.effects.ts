@@ -4,12 +4,12 @@ import { ProgramsService } from '../services/programs.service';
 import { Observable, of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
+import { Program } from '../models/program';
 import {
   ProgramsListActionTypes,
   LoadProgramsSuccess,
   LoadProgramsFail,
-} from '../actions/programs-list.actions';
-import { Program } from '../models/program';
+} from '../actions/programs.actions';
 
 @Injectable()
 export class ProgramsEffects {
@@ -19,8 +19,8 @@ export class ProgramsEffects {
   ) {}
 
   @Effect()
-  getExtensionsList$: Observable<Action> = this.actions$.pipe(
-    ofType(ProgramsListActionTypes.LoadProgramsList),
+  loadPrograms$: Observable<Action> = this.actions$.pipe(
+    ofType(ProgramsListActionTypes.LOAD_PROGRAMS),
     switchMap(() =>
       this.service.getProgramsList().pipe(
         map((data: Array<Program>) => new LoadProgramsSuccess(data)),
@@ -28,4 +28,16 @@ export class ProgramsEffects {
       ),
     ),
   );
+
+  @Effect()
+  loadProgramDetails$ = this.actions$
+    .ofType(ProgramsListActionTypes.LOAD_PROGRAMS)
+    .pipe(
+      switchMap(() => {
+        return this.service.getProgramsList().pipe(
+          map(programs => new LoadProgramsSuccess(programs)),
+          catchError(error => of(new LoadProgramsFail(error))),
+        );
+      }),
+    );
 }

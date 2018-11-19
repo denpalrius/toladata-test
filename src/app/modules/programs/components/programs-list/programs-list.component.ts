@@ -5,7 +5,7 @@ import {
   LoadPrograms,
   LoadProgramsSuccess,
   LoadProgramsFail,
-} from '../../actions/programs-list.actions';
+} from '../../actions/programs.actions';
 import * as fromProgramsList from '../../reducers/programs-list.reducer';
 import { Program } from '../../models/program';
 
