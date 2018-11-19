@@ -22,7 +22,7 @@
       </mat-error>
     </div>
   </div>
-  <div class="row">
+  <div class="row" fxLayout="row" fxLayoutAlign="space-between center">
     <div class="col">
       <mat-form-field class="full-width">
         <input matInput (click)="startDp.open()" [min]="minStartDate" [matDatepicker]="startDp" placeholder="Start date"
