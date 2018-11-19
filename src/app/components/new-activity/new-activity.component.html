@@ -1,0 +1,55 @@
+<form [formGroup]="newActivityForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Add activity</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Name" formControlName="name">
+          </mat-form-field>
+          <mat-error *ngIf="nameControl.hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="nameControl.hasError('minlength')">
+            Name must be <strong>2 characters or longer</strong> 
+          </mat-error>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput (click)="startDp.open()" [min]="minStartDate" [matDatepicker]="startDp" placeholder="Start date"
+              formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="startDp"></mat-datepicker-toggle>
+            <mat-datepicker #startDp></mat-datepicker>
+          </mat-form-field>
+
+          <mat-error *ngIf="newActivityForm.get('startDate').hasError('required')">
+            Start date is <strong>required</strong>
+          </mat-error>
+        </div>
+        <div class="col">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput (click)="endDp.open()" [min]="minEndDate" [matDatepicker]="endDp" placeholder="End date"
+                formControlName="endDate">
+              <mat-datepicker-toggle matSuffix [for]="endDp"></mat-datepicker-toggle>
+              <mat-datepicker #endDp></mat-datepicker>
+            </mat-form-field>
+
+            <mat-error *ngIf="newActivityForm.get('endDate').hasError('required')">
+              End date is <strong>required</strong>
+            </mat-error>
+          </div>
+        </div>
+      </div>
+
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

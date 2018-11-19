@@ -1,5 +1,5 @@
-export class Acivity {
-  constructor(initialData: Partial<Acivity> = null) {
+export class Activity {
+  constructor(initialData: Partial<Activity> = null) {
     if (initialData !== null) {
       Object.assign(this, initialData);
     }
