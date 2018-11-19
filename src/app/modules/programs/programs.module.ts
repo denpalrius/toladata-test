@@ -10,17 +10,17 @@ import { ProgramsRoutingModule } from './programs-routing.module';
 import { EffectsModule } from '@ngrx/effects';
 import { ProgramsEffects } from './effects/programs.effects';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [NewActivityComponent, ProgramsListComponent],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-
-    MatIconModule,
-
     ProgramsRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    SharedModule.forRoot(),
     StoreModule.forFeature('programList', fromProgramList.reducer),
     EffectsModule.forFeature([ProgramsEffects]),
   ],

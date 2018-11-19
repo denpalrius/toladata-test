@@ -6,8 +6,8 @@ import { switchMap, map, catchError } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import {
   ProgramsListActionTypes,
-  LoadProgramsListSuccess,
-  LoadProgramListsFail,
+  LoadProgramsSuccess,
+  LoadProgramsFail,
 } from '../actions/programs-list.actions';
 import { Program } from '../models/program';
 
@@ -23,8 +23,8 @@ export class ProgramsEffects {
     ofType(ProgramsListActionTypes.LoadProgramsList),
     switchMap(() =>
       this.service.getProgramsList().pipe(
-        map((data: Array<Program>) => new LoadProgramsListSuccess(data)),
-        catchError(error => of(new LoadProgramListsFail(error))),
+        map((data: Array<Program>) => new LoadProgramsSuccess(data)),
+        catchError(error => of(new LoadProgramsFail(error))),
       ),
     ),
   );

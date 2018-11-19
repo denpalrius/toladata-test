@@ -4,30 +4,20 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatInputModule,
-  MatButtonModule,
-  MatSelectModule,
-  MatCardModule,
-  MatToolbarModule,
-  MatIconModule,
-  MatListModule,
-  MatGridListModule,
-  MatMenuModule,
-  MatDatepickerModule,
-  MatRadioModule,
-  MatSnackBarModule,
-  MatSidenavModule,
-} from '@angular/material';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './store';
+import { StoreModule, MetaReducer } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { storeFreeze } from 'ngrx-store-freeze';
+
+export const metaReducers: MetaReducer<any>[] = !environment.production
+  ? [storeFreeze]
+  : [];
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent],
@@ -38,21 +28,14 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     LayoutModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatListModule,
-    MatGridListModule,
-    MatMenuModule,
-    MatDatepickerModule,
-    MatRadioModule,
-    MatSnackBarModule,
-    MatSidenavModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreModule.forRoot({}, { metaReducers }),
+    EffectsModule.forRoot([]),
+    !environment.production
+      ? StoreDevtoolsModule.instrument({
+          name: 'Toladata Store DevTools',
+          logOnly: environment.production,
+        })
+      : [],
   ],
   bootstrap: [AppComponent],
 })

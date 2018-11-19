@@ -7,21 +7,21 @@ export enum ProgramsListActionTypes {
   LoadProgramsListFail = '[ProgramsList] Load Programs Lists Fail',
 }
 
-export class LoadProgramsList implements Action {
+export class LoadPrograms implements Action {
   readonly type = ProgramsListActionTypes.LoadProgramsList;
 }
 
-export class LoadProgramsListSuccess implements Action {
+export class LoadProgramsSuccess implements Action {
   readonly type = ProgramsListActionTypes.LoadProgramsListSuccess;
 
   constructor(public payload: Array<Program>) {}
 }
-export class LoadProgramListsFail implements Action {
+export class LoadProgramsFail implements Action {
   readonly type = ProgramsListActionTypes.LoadProgramsListFail;
 
   constructor(public payload: Array<Program>) {}
 }
-export type ProgramsListActions =
-  | LoadProgramsList
-  | LoadProgramsListSuccess
-  | LoadProgramListsFail;
+export type ProgramsActions =
+  | LoadPrograms
+  | LoadProgramsSuccess
+  | LoadProgramsFail;
