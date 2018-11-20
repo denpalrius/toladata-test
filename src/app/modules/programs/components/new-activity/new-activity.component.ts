@@ -129,10 +129,10 @@ export class NewActivityComponent implements OnInit {
         name: this.newActivityForm.value.name,
         expected_start_date: moment(
           this.newActivityForm.value.startDate,
-        ).format('DD.MM.YYYY'),
-        expected_end_date: moment(this.newActivityForm.value.endDate).format(
-          'DD.MM.YYYY',
-        ),
+        ).toISOString(),
+        expected_end_date: moment(
+          this.newActivityForm.value.endDate,
+        ).toISOString(),
       });
 
       // TODO: Append ID

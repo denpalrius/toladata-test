@@ -13,16 +13,11 @@ export const reducers: ActionReducerMap<ProgramsState> = {
   programs: fromPrograms.reducer,
 };
 
-export const getProgramsListState = createFeatureSelector<ProgramsState>(
+export const getProgramsRootState = createFeatureSelector<ProgramsState>(
   'programs',
 );
 
 export const getProgramsState = createSelector(
-  getProgramsListState,
+  getProgramsRootState,
   (state: ProgramsState) => state.programs,
 );
-
-// export const getProgramsListState = createSelector(
-//   getProgramsState,
-//   (state: ProgramsState) => state.programs,
-// );

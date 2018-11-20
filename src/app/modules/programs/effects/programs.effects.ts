@@ -33,8 +33,8 @@ export class ProgramsEffects {
   loadPrograms$: Observable<Action> = this.actions$.pipe(
     ofType(ProgramsListActionTypes.LOAD_PROGRAMS),
     switchMap(() =>
-      this.service.getProgramsList().pipe(
-        map((data: Array<Program>) => new LoadProgramsSuccess(data)),
+      this.service.getPrograms().pipe(
+        map((programs: Program[]) => new LoadProgramsSuccess(programs)),
         catchError(error => of(new LoadProgramsFail(error))),
       ),
     ),

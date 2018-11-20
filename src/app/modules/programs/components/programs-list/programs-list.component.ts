@@ -1,37 +1,55 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { LoadPrograms } from '../../actions/programs.actions';
 import * as fromStore from '../../reducers/programs.reducer';
 import { Program } from '../../models/program';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-programs-list',
   templateUrl: './programs-list.component.html',
   styleUrls: ['./programs-list.component.scss'],
 })
-export class ProgramsListComponent implements OnDestroy {
+export class ProgramsListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   programs$: Observable<Program[]>;
-  programsList: Program[];
+  selectedProgramId: string;
 
-  constructor(private store: Store<fromStore.ProgramsState>) {
+  constructor(
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
+    private store: Store<fromStore.ProgramsState>,
+  ) {
     this.programs$ = this.store.pipe(select(fromStore.selectPrograms));
 
     this.subscription = this.programs$.subscribe(data =>
-      this.prepareProgramsList(data),
+      this.preparePrograms(data),
     );
   }
 
-  prepareProgramsList(data: Program[]): void {
+  ngOnInit(): void {
+    this.store.dispatch(new LoadPrograms());
+  }
+
+  preparePrograms(data: any): void {
     if (!data) {
       this.store.dispatch(new LoadPrograms());
       return;
     }
+  }
 
-    this.programsList = data;
-
-    console.log('data', this.programsList);
+  openProgram(program: Program) {
+    if (program) {
+      console.log(program);
+      this.router.navigate(['details'], { relativeTo: this.route });
+    }
   }
 
   ngOnDestroy(): void {

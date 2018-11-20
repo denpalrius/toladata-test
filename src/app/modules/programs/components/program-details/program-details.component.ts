@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-program-details',
@@ -6,5 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./program-details.component.scss'],
 })
 export class ProgramDetailsComponent implements OnInit {
+  @Input()
+  programId: string;
+
   ngOnInit() {}
 }

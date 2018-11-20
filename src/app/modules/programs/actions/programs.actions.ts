@@ -27,7 +27,7 @@ export class LoadPrograms implements Action {
 export class LoadProgramsSuccess implements Action {
   readonly type = ProgramsListActionTypes.LOAD_PROGRAMS_SUCCESS;
 
-  constructor(public payload: Array<Program>) {}
+  constructor(public payload: Program[]) {}
 }
 export class LoadProgramsFail implements Action {
   readonly type = ProgramsListActionTypes.LOAD_PROGRAMS_FAIL;

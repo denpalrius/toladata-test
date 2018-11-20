@@ -1,28 +1,25 @@
-<div fxLayoutGap="20px" fxLayout="row" fxLayoutAlign="end center">
-  <button routerLink="/programs/new-activity" mat-stroked-button color="primary">
-    <mat-icon aria-label="New Activity">add</mat-icon>
-    <span>New Activity</span>
-  </button>
+<button routerLink="/programs/new-activity" mat-stroked-button color="primary">
+  <mat-icon aria-label="New Activity">add</mat-icon>
+  <span>New Activity</span>
+</button>
+
+<div *ngIf='(programs$ | async)?.programs?.length < 1'>
 
 </div>
 
-{{(programs$ | async)?.length}}
-
-<!-- <ul>
-  <li *ngFor="let program of (programs$ | async)">{{program.name}}</li>
-</ul> -->
-
-<!-- <div *ngIf="programsList.length > 0">
+<div *ngIf='(programs$ | async)?.programs?.length> 0'>
   <div>
-    {{(programs$ | async)?.length}}
+    <br>
+    <strong>
+      <span>{{(programs$ | async)?.programs.length}} programs </span>
+    </strong>
+    <br>
   </div>
 
-  {{(programs$ | async)}}
-  <mat-selection-list>
-    <mat-list-option *ngFor="let program of (programs$ | async)">
+  <mat-nav-list>
+    <mat-list-item (click)="openProgram(program)" *ngFor='let program of (programs$ | async)?.programs'>
       {{program.name}}
-      {{program.create_date}}
-    </mat-list-option>
-  </mat-selection-list>
+    </mat-list-item>
+  </mat-nav-list>
 
-</div> -->
+</div>

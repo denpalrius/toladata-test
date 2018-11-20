@@ -11,8 +11,8 @@ export class ProgramsService {
   constructor(private readonly http: HttpClient) {}
 
   endpoints = {
-    programs: 'https://dev.toladata.io/api/workflowlevel1/',
-    activities: 'https://dev.toladata.io/api/workflowlevel2/',
+    programs: 'https://dev.toladata.io/api/workflowlevel1',
+    activities: 'https://dev.toladata.io/api/workflowlevel2',
   };
 
   httpOptions = {
@@ -22,11 +22,13 @@ export class ProgramsService {
     }),
   };
 
-  getProgramsList(): Observable<Array<Program>> {
+  getPrograms(): Observable<Program[]> {
     return this.http
-      .get<Array<Program>>(`${this.endpoints.programs}`, this.httpOptions)
+      .get<Program[]>(`${this.endpoints.programs}`, this.httpOptions)
       .pipe(
         map((result: any) => {
+          console.log(result);
+
           return result.map(program => {
             return new Program(program);
           });
@@ -61,7 +63,7 @@ export class ProgramsService {
       .pipe(
         catchError(this.catchError),
         map((result: any) => {
-            return new Activity(result);
+          return new Activity(result);
         }),
       );
   }
