@@ -4,7 +4,11 @@ import { Activity } from '../../models/activity';
 import { select, Store } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
 import * as fromStore from '../../reducers/programs.reducer';
-import { LoadProgram, ResetDetails } from '../../actions/programs.actions';
+import {
+  LoadProgram,
+  ResetDetails,
+  DeleteteActivity,
+} from '../../actions/programs.actions';
 
 @Component({
   selector: 'app-program-details',
@@ -57,6 +61,12 @@ export class ProgramDetailsComponent implements OnInit, OnDestroy {
       this.router.navigate([`/programs/${this.programId}/new-activity`], {
         relativeTo: this.route,
       });
+    }
+  }
+
+  deleteActivity(activity: Activity) {
+    if (activity) {
+      this.store.dispatch(new DeleteteActivity({ id: activity.id }));
     }
   }
 

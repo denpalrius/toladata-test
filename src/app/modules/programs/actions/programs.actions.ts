@@ -74,7 +74,7 @@ export class CreateActivityFail implements Action {
 export class DeleteteActivity implements Action {
   readonly type = ProgramsListActionTypes.DELETE_ACTIVITY;
 
-  constructor(public payload: ProgramPayload) {}
+  constructor(public payload: ActivityPayload) {}
 }
 
 export class DeleteActivitySuccess implements Action {
@@ -109,4 +109,8 @@ export type programsActions =
 
 export class ProgramPayload {
   programId: string;
+}
+
+export class ActivityPayload {
+  id: number;
 }

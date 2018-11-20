@@ -37,6 +37,9 @@
         <div> End date: {{activity.expected_end_date}} </div>
         <div> Status: {{activity.status}} </div>
       </div>
+      <button class="delete-button" (click)="deleteActivity(activity)" mat-button color="warn">
+        <mat-icon aria-label="Delete Activity">delete_outline</mat-icon>
+      </button>
     </mat-grid-tile>
   </mat-grid-list>
 

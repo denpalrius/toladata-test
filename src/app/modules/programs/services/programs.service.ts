@@ -4,7 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Program } from '../models/program';
 import { Activity } from '../models/activity';
-import { ProgramPayload } from '../actions/programs.actions';
+import { ProgramPayload, ActivityPayload } from '../actions/programs.actions';
 
 @Injectable()
 export class ProgramsService {
@@ -66,17 +66,17 @@ export class ProgramsService {
       );
   }
 
-  deleteActivity(payload: ProgramPayload): Observable<boolean> {
+  deleteActivity(payload: ActivityPayload): Observable<boolean> {
     return this.http
       .delete<Program>(
-        `${this.endpoints.activities}/?workflowlevel2__id=${payload.programId}/`,
+        `${this.endpoints.activities}/${payload.id}/`,
         this.httpOptions,
       )
       .pipe(
         catchError(this.catchError),
         map((result: any) => {
           return result.map(activity => {
-            return new Activity(activity);
+            return true;
           });
         }),
       );

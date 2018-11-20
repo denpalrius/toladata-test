@@ -179,10 +179,8 @@ export class NewActivityComponent implements OnInit, OnDestroy {
         name: this.newActivityForm.value.name,
         expected_start_date: moment(
           this.newActivityForm.value.startDate,
-        ).format('YYYY-MM-DDThh:mm'),
-        expected_end_date: moment(
-          this.newActivityForm.value.endDate,
-        ).toLocaleString(),
+        ).format(),
+        expected_end_date: moment(this.newActivityForm.value.endDate).format(),
       });
 
       this.store.dispatch(new CreateActivity(this.newActivity));

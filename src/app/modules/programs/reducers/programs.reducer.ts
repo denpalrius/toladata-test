@@ -64,6 +64,8 @@ export function reducer(
     }
 
     case ProgramsListActionTypes.DELETE_ACTIVITY_SUCCESS: {
+      const exisitingActivities = {...state};
+
       return { ...state, deleteState: true };
     }
 
