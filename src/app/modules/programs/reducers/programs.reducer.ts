@@ -42,7 +42,6 @@ export function reducer(
     // Details
     case ProgramsListActionTypes.LOAD_PROGRAM: {
       console.log(action.type, action.payload);
-
       return { ...state };
     }
 
@@ -78,17 +77,23 @@ export function reducer(
     }
 
     case ProgramsListActionTypes.DELETE_ACTIVITY_FAIL: {
-      console.log(action.type, action.payload);
-
       return { ...state, deleteState: false };
     }
+
+    case ProgramsListActionTypes.RESET_DETAILS: {
+      console.log(action.type, state);
+
+      return { ...state, selectedActivities: [] };
+    }
+
     default:
       return state;
   }
 }
 
 export const selectPrograms = (state: ProgramsState) => state.programs;
-export const selectProgram = (state: ProgramsState) => state.selectedActivities;
+export const selectProgramActivities = (state: ProgramsState) =>
+  state.selectedActivities;
 export const selectCreatedActivity = (state: ProgramsState) =>
   state.createdActivity;
 export const selectDeletedActivity = (state: ProgramsState) =>

@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { LoadPrograms } from '../../actions/programs.actions';
+import { LoadPrograms, ResetDetails } from '../../actions/programs.actions';
 import * as fromStore from '../../reducers/programs.reducer';
 import { Program } from '../../models/program';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -47,8 +47,9 @@ export class ProgramsListComponent implements OnInit, OnDestroy {
 
   openProgram(program: Program) {
     if (program) {
-      console.log(program);
-      this.router.navigate(['details'], { relativeTo: this.route });
+      this.router.navigate([`/programs/${program.id}`], {
+        relativeTo: this.route,
+      });
     }
   }
 

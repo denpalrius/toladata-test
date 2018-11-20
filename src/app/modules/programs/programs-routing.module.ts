@@ -6,8 +6,8 @@ import { ProgramDetailsComponent } from './components/program-details/program-de
 
 const routes: Routes = [
   { path: '', component: ProgramsListComponent },
-  { path: 'details', component: ProgramDetailsComponent },
-  { path: 'new-activity', component: NewActivityComponent },
+  { path: ':id', component: ProgramDetailsComponent },
+  { path: ':id/new-activity', component: NewActivityComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 

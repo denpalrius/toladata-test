@@ -1,0 +1,45 @@
+<div *ngIf="!showCreationForm">
+  <div>
+    <div class="inline-display">
+      <button routerLink="" mat-icon-button color="primary">
+        <mat-icon aria-label="Back">arrow_back</mat-icon>
+      </button>
+
+      <span>Program Activities</span>
+    </div>
+
+    <button class="add-button inline-display" (click)="newActivity()" mat-stroked-button color="primary">
+      <mat-icon aria-label="New Activity">add</mat-icon>
+      <span>New Activity</span>
+    </button>
+
+  </div>
+
+  <br>
+  <mat-divider></mat-divider>
+  <br>
+
+  <div *ngIf="activities.length < 1">
+    <br>
+    <br>
+
+    <span>This project does not have any activities </span>
+    <button (click)="newActivity()" mat-button color="primary">
+      <mat-icon aria-label="Add Activity">add</mat-icon>
+    </button>
+  </div>
+
+  <mat-grid-list *ngIf="activities.length > 0" cols="4" rowHeight="100px">
+    <mat-grid-tile *ngFor="let activity of activities" [colspan]="2" [rowspan]="2" [style.background]="tileColor">
+      <div>
+        <div> Name: {{activity.name}} </div>
+        <div> Start Date: {{activity.expected_start_date}} </div>
+        <div> End date: {{activity.expected_end_date}} </div>
+        <div> Status: {{activity.status}} </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</div>
+
+<app-new-activity *ngIf="showCreationForm"></app-new-activity>

@@ -18,6 +18,8 @@ export enum ProgramsListActionTypes {
   DELETE_ACTIVITY = '[DeleteActivity] Delete Activity',
   DELETE_ACTIVITY_SUCCESS = '[DeleteActivity] Delete Activity Success',
   DELETE_ACTIVITY_FAIL = '[DeleteActivity] Delete Activity Fail',
+
+  RESET_DETAILS = '[Programs] Reset All',
 }
 
 export class LoadPrograms implements Action {
@@ -86,6 +88,10 @@ export class DeleteActivityFail implements Action {
   constructor(public payload: any) {}
 }
 
+export class ResetDetails implements Action {
+  readonly type = ProgramsListActionTypes.RESET_DETAILS;
+}
+
 export type programsActions =
   | LoadPrograms
   | LoadProgramsSuccess
@@ -98,7 +104,8 @@ export type programsActions =
   | CreateActivityFail
   | DeleteteActivity
   | DeleteActivitySuccess
-  | DeleteActivityFail;
+  | DeleteActivityFail
+  | ResetDetails;
 
 export class ProgramPayload {
   programId: string;

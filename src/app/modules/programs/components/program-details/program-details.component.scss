@@ -1,0 +1,22 @@
+.mat-list:nth-child(even) {
+  background-color: red;
+}
+
+.mat-list:nth-child(odd) {
+  background-color: black;
+}
+
+
+.add-button {
+  position: absolute;
+  right: 0px;
+  margin-right: 10px;
+}
+
+.inline-display{
+display: inline-block;
+}
+
+.dividerMargins{
+margin: 10px 0px;
+}

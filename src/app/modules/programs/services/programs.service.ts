@@ -40,7 +40,7 @@ export class ProgramsService {
   getProgramActivites(payload: ProgramPayload): Observable<Activity[]> {
     return this.http
       .get<Activity[]>(
-        `${this.endpoints.programs}/?workflowlevel1__id=${payload.programId}`,
+        `${this.endpoints.activities}/?workflowlevel1__id=${payload.programId}`,
         this.httpOptions,
       )
       .pipe(
