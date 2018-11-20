@@ -24,11 +24,9 @@ export class ProgramsService {
 
   getPrograms(): Observable<Program[]> {
     return this.http
-      .get<Program[]>(`${this.endpoints.programs}`, this.httpOptions)
+      .get<Program[]>(`${this.endpoints.programs}/`, this.httpOptions)
       .pipe(
         map((result: any) => {
-          console.log(result);
-
           return result.map(program => {
             return new Program(program);
           });
@@ -56,7 +54,7 @@ export class ProgramsService {
   addActivity(newActivity: Activity): Observable<Activity> {
     return this.http
       .post<Activity>(
-        `${this.endpoints.activities}`,
+        `${this.endpoints.activities}/`,
         newActivity,
         this.httpOptions,
       )
@@ -71,7 +69,7 @@ export class ProgramsService {
   deleteActivity(payload: ProgramPayload): Observable<boolean> {
     return this.http
       .delete<Program>(
-        `${this.endpoints.activities}/?workflowlevel2__id=${payload.programId}`,
+        `${this.endpoints.activities}/?workflowlevel2__id=${payload.programId}/`,
         this.httpOptions,
       )
       .pipe(

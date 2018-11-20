@@ -32,7 +32,6 @@ export function reducer(
 
     case ProgramsListActionTypes.LOAD_PROGRAMS_SUCCESS:
     case ProgramsListActionTypes.LOAD_PROGRAMS_FAIL: {
-      console.log(action.type, action.payload);
       return {
         ...state,
         programs: action.payload,
@@ -41,13 +40,11 @@ export function reducer(
 
     // Details
     case ProgramsListActionTypes.LOAD_PROGRAM: {
-      console.log(action.type, action.payload);
       return { ...state };
     }
 
     case ProgramsListActionTypes.LOAD_PROGRAM_SUCCESS:
     case ProgramsListActionTypes.LOAD_PROGRAM_FAIL: {
-      console.log(action.type, action.payload);
       return {
         ...state,
         selectedActivities: action.payload,
@@ -58,21 +55,15 @@ export function reducer(
     case ProgramsListActionTypes.CREATE_ACTIVITY:
     case ProgramsListActionTypes.CREATE_ACTIVITY_SUCCESS:
     case ProgramsListActionTypes.CREATE_ACTIVITY_FAIL: {
-      console.log(action.type, action.payload);
-
       return { ...state, createdActivity: action.payload };
     }
 
     // Delete
     case ProgramsListActionTypes.DELETE_ACTIVITY: {
-      console.log(action.type, action.payload);
-
       return { ...state };
     }
 
     case ProgramsListActionTypes.DELETE_ACTIVITY_SUCCESS: {
-      console.log(action.type, action.payload);
-
       return { ...state, deleteState: true };
     }
 
@@ -81,8 +72,6 @@ export function reducer(
     }
 
     case ProgramsListActionTypes.RESET_DETAILS: {
-      console.log(action.type, state);
-
       return { ...state, selectedActivities: [] };
     }
 

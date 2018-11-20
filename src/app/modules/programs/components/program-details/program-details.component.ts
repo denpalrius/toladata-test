@@ -16,7 +16,6 @@ export class ProgramDetailsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   getProgramActivities$: Observable<any>;
   activities: Activity[];
-  newActivityId: string;
 
   tileColor = 'lightblue';
 
@@ -38,7 +37,6 @@ export class ProgramDetailsComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.route.params.subscribe(params => {
         this.programId = (params['id'] as string) || null;
-        console.log('programId', this.programId);
         if (this.programId !== '' && this.programId !== 'new-activity') {
           this.store.dispatch(new LoadProgram({ programId: this.programId }));
         }

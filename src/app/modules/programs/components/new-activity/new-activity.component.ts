@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
   Validators,
@@ -17,7 +17,7 @@ import { MatSnackBar } from '@angular/material';
 import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import * as fromStore from '../../reducers/programs.reducer';
 import { CreateActivity } from '../../actions/programs.actions';
 
@@ -47,15 +47,16 @@ export const DEFAULT_DATE_MODE_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: DEFAULT_DATE_MODE_FORMATS },
   ],
 })
-export class NewActivityComponent implements OnInit {
+export class NewActivityComponent implements OnInit, OnDestroy {
   newActivityForm: FormGroup;
   newActivity: Activity;
+  programId: string;
 
   minStartDate: moment.Moment;
   minEndDate: moment.Moment;
 
   subscription: Subscription;
-  newActivity$: Observable<Activity>;
+  newActivity$: Observable<any>;
 
   constructor(
     private readonly router: Router,
@@ -63,13 +64,59 @@ export class NewActivityComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly snackBar: MatSnackBar,
     private readonly store: Store<fromStore.ProgramsState>,
-  ) {}
+  ) {
+    this.newActivity$ = store.pipe(select(fromStore.selectCreatedActivity));
+    this.subscription = this.newActivity$.subscribe(data => {
+      console.log('createdActivity', data);
+
+      if (data) {
+        if (data.createdActivity as Activity) {
+          console.log('createdActivity', data.createdActivity);
+          this.snackBar.open('New activity successfully saved', 'Ok', {
+            duration: 3000,
+          });
+
+          const navigateTo = '';
+          this.router.navigate([navigateTo], { relativeTo: this.route });
+        } else {
+          this.snackBar.open(
+            'There was an error creating the new activity',
+            'Ok',
+            {
+              duration: 3000,
+            },
+          );
+        }
+      }
+    });
+
+    this.subscription.add(
+      this.route.params.subscribe(params => {
+        const programId = (params['id'] as string) || null;
+        if (this.programId !== '' && this.programId !== 'new-activity') {
+          console.log('programId', this.programId);
+
+          this.programId = programId;
+        } else {
+          this.router.navigate([`/programs`], {
+            relativeTo: this.route,
+          });
+        }
+      }),
+    );
+  }
 
   ngOnInit() {
     this.minStartDate = moment();
     this.minEndDate = this.minStartDate.add(1, 'd');
 
     this.prepareForm(this.minStartDate);
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   prepareForm(startDate: moment.Moment) {
@@ -124,26 +171,21 @@ export class NewActivityComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.isFormValid) {
+    if (this.isFormValid && this.programId) {
       this.newActivity = new Activity({
+        workflowlevel1: `https://dev.toladata.io/api/workflowlevel1/${
+          this.programId
+        }/`,
         name: this.newActivityForm.value.name,
         expected_start_date: moment(
           this.newActivityForm.value.startDate,
-        ).toISOString(),
+        ).format('YYYY-MM-DDThh:mm'),
         expected_end_date: moment(
           this.newActivityForm.value.endDate,
-        ).toISOString(),
+        ).toLocaleString(),
       });
 
-      // TODO: Append ID
       this.store.dispatch(new CreateActivity(this.newActivity));
-
-      this.snackBar.open('New activity successfully saved', 'Ok', {
-        duration: 3000,
-      });
-
-      const navigateTo = '';
-      this.router.navigate([navigateTo], { relativeTo: this.route });
     }
   }
 }
