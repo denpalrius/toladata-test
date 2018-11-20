@@ -1,9 +1,7 @@
 import {
-  ActionReducer,
   ActionReducerMap,
   createFeatureSelector,
   createSelector,
-  MetaReducer,
 } from '@ngrx/store';
 import * as fromPrograms from '../../programs/reducers/programs.reducer';
 
@@ -23,3 +21,8 @@ export const getProgramsState = createSelector(
   getProgramsListState,
   (state: ProgramsState) => state.programs,
 );
+
+// export const getProgramsListState = createSelector(
+//   getProgramsState,
+//   (state: ProgramsState) => state.programs,
+// );

@@ -10,23 +10,28 @@ import { Program } from '../../models/program';
   templateUrl: './programs-list.component.html',
   styleUrls: ['./programs-list.component.scss'],
 })
-export class ProgramsListComponent implements OnInit, OnDestroy {
+export class ProgramsListComponent implements OnDestroy {
   subscription: Subscription;
-
-  getProgramsList$: Observable<Array<Program>>;
+  programs$: Observable<Program[]>;
+  programsList: Program[];
 
   constructor(private store: Store<fromStore.ProgramsState>) {
-    this.getProgramsList$ = store.pipe(select(LoadPrograms));
+    this.programs$ = this.store.pipe(select(fromStore.selectPrograms));
+
+    this.subscription = this.programs$.subscribe(data =>
+      this.prepareProgramsList(data),
+    );
   }
 
-  ngOnInit() {
-    // this.store.dispatch(new LoadPrograms());
-    // this.subscription = this.getProgramsList$.subscribe(data =>
-    //   this.prepareProgramsList(data),
-    // );
-  }
   prepareProgramsList(data: Program[]): void {
-    console.log('data', data);
+    if (!data) {
+      this.store.dispatch(new LoadPrograms());
+      return;
+    }
+
+    this.programsList = data;
+
+    console.log('data', this.programsList);
   }
 
   ngOnDestroy(): void {

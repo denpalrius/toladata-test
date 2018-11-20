@@ -16,6 +16,10 @@ import { MatSnackBar } from '@angular/material';
 
 import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromStore from '../../reducers/programs.reducer';
+import { CreateActivity } from '../../actions/programs.actions';
 
 export const DEFAULT_DATE_MODE_FORMATS = {
   parse: {
@@ -50,11 +54,15 @@ export class NewActivityComponent implements OnInit {
   minStartDate: moment.Moment;
   minEndDate: moment.Moment;
 
+  subscription: Subscription;
+  newActivity$: Observable<Activity>;
+
   constructor(
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly fb: FormBuilder,
-    private readonly snackBar: MatSnackBar, // private readonly store: Store<fromStore.ExtensionsState>,
+    private readonly snackBar: MatSnackBar,
+    private readonly store: Store<fromStore.ProgramsState>,
   ) {}
 
   ngOnInit() {
@@ -127,8 +135,8 @@ export class NewActivityComponent implements OnInit {
         ),
       });
 
-      console.log('newActivityForm: ', this.newActivity);
-      // TODO: Dispatch save
+      // TODO: Append ID
+      this.store.dispatch(new CreateActivity(this.newActivity));
 
       this.snackBar.open('New activity successfully saved', 'Ok', {
         duration: 3000,

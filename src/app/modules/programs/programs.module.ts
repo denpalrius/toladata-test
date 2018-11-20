@@ -26,7 +26,7 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('programList', fromProgramList.reducer),
+    StoreModule.forFeature('programs', fromProgramList.reducer),
     EffectsModule.forFeature([ProgramsEffects]),
   ],
   providers: [ProgramsService],

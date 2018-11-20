@@ -1,4 +1,4 @@
-<div  dir="rtl" fxLayoutGap="20px" fxLayout="row" fxLayoutAlign="end center">
+<div fxLayoutGap="20px" fxLayout="row" fxLayoutAlign="end center">
   <button routerLink="/programs/new-activity" mat-stroked-button color="primary">
     <mat-icon aria-label="New Activity">add</mat-icon>
     <span>New Activity</span>
@@ -6,6 +6,23 @@
 
 </div>
 
-<div>
+{{(programs$ | async)?.length}}
 
-</div>
+<!-- <ul>
+  <li *ngFor="let program of (programs$ | async)">{{program.name}}</li>
+</ul> -->
+
+<!-- <div *ngIf="programsList.length > 0">
+  <div>
+    {{(programs$ | async)?.length}}
+  </div>
+
+  {{(programs$ | async)}}
+  <mat-selection-list>
+    <mat-list-option *ngFor="let program of (programs$ | async)">
+      {{program.name}}
+      {{program.create_date}}
+    </mat-list-option>
+  </mat-selection-list>
+
+</div> -->
