@@ -6,7 +6,7 @@ import { ProgramDetailsComponent } from './components/program-details/program-de
 
 const routes: Routes = [
   { path: '', component: ProgramsListComponent },
-  { path: ':id', component: ProgramDetailsComponent },
+  { path: 'details', component: ProgramDetailsComponent },
   { path: 'new-activity', component: NewActivityComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

@@ -1,36 +1,25 @@
-// import {
-//   ActionReducer,
-//   ActionReducerMap,
-//   createFeatureSelector,
-//   createSelector,
-//   MetaReducer,
-// } from '@ngrx/store';
-// import { environment } from '../../environments/environment';
-// import * as fromProgramsList from '../modules/programs/reducers/programs-list.reducer';
-// import { State } from '../modules/programs/reducers/programs-list.reducer';
-// import { storeFreeze } from 'ngrx-store-freeze';
+import {
+  ActionReducer,
+  ActionReducerMap,
+  createFeatureSelector,
+  createSelector,
+  MetaReducer,
+} from '@ngrx/store';
+import * as fromPrograms from '../../programs/reducers/programs.reducer';
 
-// export interface ProgramsState {
-//   programsList: fromProgramsList.State;
-// }
+export interface ProgramsState {
+  programs: fromPrograms.ProgramsState;
+}
 
-// export interface State extends fromProgramsList.State {
-//   programs: ProgramsState;
-// }
+export const reducers: ActionReducerMap<ProgramsState> = {
+  programs: fromPrograms.reducer,
+};
 
-// export const reducers: ActionReducerMap<ProgramsState> = {
-//   programsList: fromProgramsList.reducer,
-// };
+export const getProgramsListState = createFeatureSelector<ProgramsState>(
+  'programs',
+);
 
-// export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
-//   return function(state: State, action: any): State {
-//     console.log('state', state);
-//     console.log('action', action);
-
-//     return reducer(state, action);
-//   };
-// }
-
-// export const metaReducers: MetaReducer<any>[] = !environment.production
-//   ? [storeFreeze]
-//   : [];
+export const getProgramsState = createSelector(
+  getProgramsListState,
+  (state: ProgramsState) => state.programs,
+);

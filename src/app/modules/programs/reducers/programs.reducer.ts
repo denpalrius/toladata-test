@@ -5,18 +5,18 @@ import {
   ProgramsListActionTypes,
 } from '../actions/programs.actions';
 
-export interface State {
+export interface ProgramsState {
   programsList: Array<Program>;
 }
 
-export const initialState: State = {
+export const initialState: ProgramsState = {
   programsList: [],
 };
 
 export function reducer(
   state = initialState,
   action: programsActions,
-): State {
+): ProgramsState {
   switch (action.type) {
     case ProgramsListActionTypes.LOAD_PROGRAMS: {
       console.log('ProgramsListActionTypes: ', { ...state });
@@ -38,8 +38,4 @@ export function reducer(
   }
 }
 
-export const selectProgramsList = (state: State) => state.programsList;
-// export const selectFeatureCount = createSelector(
-//   selectProgramsList,
-//   (state: FeatureState) => state.counter
-//  );
+export const selectPrograms = (state: ProgramsState) => state.programsList;

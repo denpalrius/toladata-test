@@ -1,18 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Program } from '../models/program';
 import { Activity } from '../models/activity';
-import * as fromProgramList from '../../../store';
 
 @Injectable()
 export class ProgramsService {
-  constructor(
-    private readonly store: Store<fromProgramList.State>,
-    private readonly http: HttpClient,
-  ) {}
+  constructor(private readonly http: HttpClient) {}
 
   endpoints = {
     programs: 'https://dev.toladata.io/api/workflowlevel1/',
@@ -30,12 +25,12 @@ export class ProgramsService {
     return this.http
       .get<Array<Program>>(`${this.endpoints.programs}`, this.httpOptions)
       .pipe(
-        catchError(this.catchError),
         map((result: any) => {
           return result.map(program => {
             return new Program(program);
           });
         }),
+        catchError(this.catchError),
       );
   }
 

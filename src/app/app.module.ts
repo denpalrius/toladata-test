@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { storeFreeze } from 'ngrx-store-freeze';
+import { SharedModule } from './modules/shared/shared.module';
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
   ? [storeFreeze]
@@ -22,11 +23,12 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent],
   imports: [
-    AppRoutingModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    SharedModule.forRoot(),
     ReactiveFormsModule,
+    AppRoutingModule,
     LayoutModule,
     StoreModule.forRoot({}, { metaReducers }),
     EffectsModule.forRoot([]),

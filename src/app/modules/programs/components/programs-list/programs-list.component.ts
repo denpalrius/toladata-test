@@ -1,12 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import {
-  LoadPrograms,
-  LoadProgramsSuccess,
-  LoadProgramsFail,
-} from '../../actions/programs.actions';
-import * as fromProgramsList from '../../reducers/programs-list.reducer';
+import { LoadPrograms } from '../../actions/programs.actions';
+import * as fromStore from '../../reducers/programs.reducer';
 import { Program } from '../../models/program';
 
 @Component({
@@ -19,20 +15,23 @@ export class ProgramsListComponent implements OnInit, OnDestroy {
 
   getProgramsList$: Observable<Array<Program>>;
 
-  constructor(private store: Store<fromProgramsList.State>) {
+  constructor(private store: Store<fromStore.ProgramsState>) {
     this.getProgramsList$ = store.pipe(select(LoadPrograms));
   }
 
   ngOnInit() {
-    this.subscription = this.getProgramsList$.subscribe(data =>
-      this.prepareProgramsList(data),
-    );
+    // this.store.dispatch(new LoadPrograms());
+    // this.subscription = this.getProgramsList$.subscribe(data =>
+    //   this.prepareProgramsList(data),
+    // );
   }
   prepareProgramsList(data: Program[]): void {
     console.log('data', data);
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
